@@ -75,15 +75,20 @@ openai_client: Optional[OpenAI] = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_K
 
 from pathlib import Path
 import toml
-
+import streamlit as st
 config_path = Path(__file__).parent / "config.toml"
 
-with open(config_path, "r") as f:
-    config = toml.load(f)
+#with open(config_path, "r") as f:
+#    config = toml.load(f)
 
-MAI_ENDPOINT = config["MAI_ENDPOINT"]
-MAI_API_KEY = config["MAI_API_KEY"]
-MAI_DEPLOYMENT_NAME = config["MAI_DEPLOYMENT_NAME"]
+#MAI_ENDPOINT = config["MAI_ENDPOINT"]
+#MAI_API_KEY = config["MAI_API_KEY"]
+#MAI_DEPLOYMENT_NAME = config["MAI_DEPLOYMENT_NAME"]
+
+MAI_ENDPOINT = st.secrets["MAI_ENDPOINT"]
+MAI_API_KEY = st.secrets["MAI_API_KEY"]
+MAI_DEPLOYMENT_NAME = st.secrets["MAI_DEPLOYMENT_NAME"]
+
 
 INPUT_FOLDER = BASE_DIR / "input_images"
 OUTPUT_FOLDER = BASE_DIR / "output_images"
