@@ -70,9 +70,20 @@ openai_client: Optional[OpenAI] = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_K
 # MAI_DEPLOYMENT_NAME is the deployment name you gave the model in Foundry
 # (defaults to "mai-image-2.5" - check the Foundry portal under Deployments
 # if that's not what you named it).
-MAI_ENDPOINT = os.getenv("MAI_ENDPOINT")
-MAI_API_KEY = os.getenv("MAI_API_KEY")
-MAI_DEPLOYMENT_NAME = os.getenv("MAI_DEPLOYMENT_NAME", "mai-image-2.5")
+
+
+
+from pathlib import Path
+import toml
+
+config_path = Path(__file__).parent / "config.toml"
+
+with open(config_path, "r") as f:
+    config = toml.load(f)
+
+MAI_ENDPOINT = config["MAI_ENDPOINT"]
+MAI_API_KEY = config["MAI_API_KEY"]
+MAI_DEPLOYMENT_NAME = config["MAI_DEPLOYMENT_NAME"]
 
 INPUT_FOLDER = BASE_DIR / "input_images"
 OUTPUT_FOLDER = BASE_DIR / "output_images"
